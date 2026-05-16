@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DI Gudrybės.eu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,8 +12,41 @@
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(0, 200, 255, 0.3); } 50% { box-shadow: 0 0 40px rgba(0, 200, 255, 0.6); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .animate-in { animation: slideIn 0.8s ease-out forwards; }
-        .header { text-align: center; padding: 60px 20px 40px; position: relative; }
+        .shake { animation: shake 0.4s ease-in-out; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 26, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .navbar .logo { font-weight: 700; font-size: 1.2rem; background: linear-gradient(135deg, #00c8ff, #7b2cbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .navbar .nav-right { display: flex; align-items: center; gap: 15px; }
+        .lang-switcher { display: flex; gap: 5px; }
+        .lang-btn { padding: 6px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #8899cc; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .lang-btn.active { background: linear-gradient(135deg, rgba(0,200,255,0.3), rgba(123,44,191,0.3)); border-color: #00c8ff; color: #00c8ff; }
+        .lang-btn:hover { border-color: rgba(0,200,255,0.5); }
+        .login-btn { padding: 8px 20px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 25px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,200,255,0.3); }
+        .user-badge { display: none; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2); border-radius: 25px; color: #00ff88; font-size: 0.9rem; }
+        .user-badge.show { display: flex; }
+        .logout-btn { padding: 6px 14px; background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3); border-radius: 20px; color: #ff4444; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .logout-btn:hover { background: rgba(255,68,68,0.2); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; animation: fadeIn 0.3s; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: linear-gradient(135deg, #1a1a3e, #0d0d2b); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; max-width: 400px; width: 90%; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #6677aa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .modal-close:hover { color: #ff4444; }
+        .modal h3 { text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
+        .modal-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .modal-tab { flex: 1; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #8899cc; cursor: pointer; transition: all 0.3s; }
+        .modal-tab.active { background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(123,44,191,0.2)); border-color: #00c8ff; color: #00c8ff; }
+        .protected-content { display: none; }
+        .protected-content.show { display: block; }
+        .login-prompt { text-align: center; padding: 60px 20px; max-width: 500px; margin: 0 auto; }
+        .login-prompt i { font-size: 4rem; color: #6677aa; margin-bottom: 20px; display: block; }
+        .login-prompt h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .login-prompt p { color: #8899cc; margin-bottom: 25px; }
+        .login-prompt-btn { padding: 15px 40px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 50px; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .login-prompt-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,200,255,0.3); }
+        .header { text-align: center; padding: 100px 20px 40px; position: relative; }
         .logo-icon { font-size: 4rem; margin-bottom: 20px; animation: float 3s ease-in-out infinite; display: inline-block; }
         .header h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #00c8ff, #7b2cbf, #ff006e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
         .header .subtitle { font-size: 1.2rem; color: #8899cc; margin-bottom: 15px; }
@@ -54,7 +87,7 @@
         .chat-header { background: linear-gradient(135deg, rgba(0, 200, 255, 0.1), rgba(123, 44, 191, 0.1)); padding: 20px; display: flex; align-items: center; gap: 15px; }
         .chat-header .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #7b2cbf); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .chat-header .status { display: flex; align-items: center; gap: 5px; color: #00ff88; font-size: 0.85rem; }
-        .chat-messages { padding: 20px; height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-messages { padding: 20px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; line-height: 1.4; }
         .message.bot { background: rgba(0, 200, 255, 0.1); align-self: flex-start; border-bottom-left-radius: 4px; }
         .message.user { background: rgba(123, 44, 191, 0.2); align-self: flex-end; border-bottom-right-radius: 4px; }
@@ -64,41 +97,133 @@
         .chat-input input::placeholder { color: #6677aa; }
         .chat-input button { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; color: white; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .chat-input button:hover { transform: scale(1.1); }
-        .reg-section { max-width: 500px; margin: 50px auto; padding: 0 20px; }
-        .reg-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; }
-        .reg-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
-        .tab { flex: 1; padding: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #8899cc; cursor: pointer; transition: all 0.3s; font-size: 0.95rem; }
-        .tab.active { background: linear-gradient(135deg, rgba(0, 200, 255, 0.2), rgba(123, 44, 191, 0.2)); border-color: rgba(0, 200, 255, 0.3); color: #00c8ff; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #8899cc; }
         .form-group input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 18px; color: #e0e0ff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
         .form-group input:focus { border-color: rgba(0, 200, 255, 0.5); }
         .form-group input::placeholder { color: #5566aa; }
+        .form-group input.error { border-color: #ff4444; }
+        .form-group input.success { border-color: #00ff88; }
+        .error-msg { color: #ff4444; font-size: 0.8rem; margin-top: 5px; display: none; }
+        .error-msg.show { display: block; }
+        .password-strength { height: 4px; border-radius: 2px; margin-top: 8px; transition: all 0.3s; }
+        .password-strength.weak { background: #ff4444; width: 33%; }
+        .password-strength.medium { background: #ffaa00; width: 66%; }
+        .password-strength.strong { background: #00ff88; width: 100%; }
+        .strength-label { font-size: 0.75rem; margin-top: 4px; color: #6677aa; }
         .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.3); }
         .footer { text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 50px; }
         .footer .email { display: inline-flex; align-items: center; gap: 10px; color: #00c8ff; text-decoration: none; font-size: 1.1rem; margin-bottom: 20px; transition: all 0.3s; }
         .footer .email:hover { color: #7b2cbf; }
         .footer .copyright { color: #5566aa; font-size: 0.85rem; }
-        @media (max-width: 600px) { .header h1 { font-size: 2rem; } .social-grid { grid-template-columns: 1fr; } }
+        .about-section { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .about-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .about-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
+        .about-container p { color: #8899cc; line-height: 1.8; margin-bottom: 15px; }
+        .about-container ul { list-style: none; padding: 0; }
+        .about-container ul li { color: #8899cc; padding: 8px 0; padding-left: 25px; position: relative; }
+        .about-container ul li::before { content: "✨"; position: absolute; left: 0; }
+        .newsletter-section { max-width: 600px; margin: 50px auto; padding: 0 20px; }
+        .newsletter-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .newsletter-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; text-align: center; }
+        .newsletter-container p { color: #8899cc; margin-bottom: 20px; line-height: 1.6; }
+        .newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .newsletter-form input { flex: 1; min-width: 200px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 18px; color: #e0e0ff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .newsletter-form input:focus { border-color: rgba(0, 200, 255, 0.5); }
+        .newsletter-form button { padding: 14px 30px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 12px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .newsletter-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.3); }
+        .newsletter-success { color: #00ff88; margin-top: 15px; display: none; }
+        .newsletter-success.show { display: block; }
+        .faq-section { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .faq-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .faq-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
+        .faq-item { border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 20px 0; cursor: pointer; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #e0e0ff; }
+        .faq-question i { transition: transform 0.3s; color: #00c8ff; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: #8899cc; line-height: 1.6; padding-top: 0; }
+        .faq-item.active .faq-answer { max-height: 300px; padding-top: 15px; }
+        @media (max-width: 600px) { .header { padding-top: 120px; } .header h1 { font-size: 2rem; } .social-grid { grid-template-columns: 1fr; } .newsletter-form { flex-direction: column; } .navbar { padding: 10px; } .navbar .logo { font-size: 1rem; } }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 200, 255, 0.2); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0, 200, 255, 0.4); }
     </style>
+<base target="_blank">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">🤖 DI Gudrybės.eu</div>
+        <div class="nav-right">
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="switchLang('lt')" data-lang="lt">LT</button>
+                <button class="lang-btn" onclick="switchLang('ru')" data-lang="ru">RU</button>
+                <button class="lang-btn" onclick="switchLang('en')" data-lang="en">EN</button>
+            </div>
+            <div class="user-badge" id="userBadge">
+                <i class="fas fa-user"></i>
+                <span id="userName"></span>
+                <button class="logout-btn" onclick="logoutUser()" data-i18n="logout">Atsijungti</button>
+            </div>
+            <button class="login-btn" id="loginBtn" onclick="openModal()" data-i18n="login">Prisijungti</button>
+        </div>
+    </nav>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 data-i18n="userZone">👤 Vartotojo Zona</h3>
+            <div class="modal-tabs">
+                <button class="modal-tab active" onclick="switchModalTab('register')" data-i18n="register">Registruotis</button>
+                <button class="modal-tab" onclick="switchModalTab('login')" data-i18n="signin">Prisijungti</button>
+            </div>
+            <div id="modalRegisterForm">
+                <div class="form-group">
+                    <label data-i18n="nickname">🎭 Slapyvardis</label>
+                    <input type="text" id="modalNickname" placeholder="Įveskite slapyvardį..." onblur="validateModalNickname()">
+                    <div class="error-msg" id="modalNicknameError">⚠️ Slapyvardis turi būti 3-20 simbolių.</div>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="email">📧 El. paštas</label>
+                    <input type="email" id="modalEmail" placeholder="jusu@email.com" onblur="validateModalEmail()">
+                    <div class="error-msg" id="modalEmailError">⚠️ Neteisingas el. paštas.</div>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password">🔑 Slaptažodis</label>
+                    <input type="password" id="modalPassword" placeholder="Sukurkite slaptažodį..." oninput="checkModalPasswordStrength()">
+                    <div class="password-strength" id="modalPasswordStrength"></div>
+                    <div class="strength-label" id="modalStrengthLabel"></div>
+                    <div class="error-msg" id="modalPasswordError">⚠️ Bent 8 simboliai, didžioji, mažoji raidė ir skaičius.</div>
+                </div>
+                <button class="submit-btn" onclick="modalRegister()" data-i18n="registerBtn">🚀 Registruotis</button>
+            </div>
+            <div id="modalLoginForm" style="display: none;">
+                <div class="form-group">
+                    <label data-i18n="nickname">🎭 Slapyvardis</label>
+                    <input type="text" id="modalLoginNickname" placeholder="Įveskite slapyvardį...">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password">🔑 Slaptažodis</label>
+                    <input type="password" id="modalLoginPassword" placeholder="Įveskite slaptažodį...">
+                </div>
+                <button class="submit-btn" onclick="modalLogin()" data-i18n="loginBtn">🔓 Prisijungti</button>
+            </div>
+        </div>
+    </div>
+
     <header class="header animate-in">
         <div class="logo-icon">🤖</div>
-        <h1>DI Gudrybės.eu</h1>
-        <p class="subtitle">🌍 Skaitmeninio pasaulio gudrybės</p>
+        <h1 data-i18n="title">DI Gudrybės.eu</h1>
+        <p class="subtitle" data-i18n="subtitle">🌍 Skaitmeninio pasaulio gudrybės</p>
         <div class="tagline">
             <span>🤖 AI</span>
-            <span>📱 Triukai</span>
-            <span>💡 Idėjos pradedantiesiems</span>
+            <span>📱 <span data-i18n="tricks">Triukai</span></span>
+            <span>💡 <span data-i18n="ideas">Idėjos pradedantiesiems</span></span>
         </div>
     </header>
+
     <div class="hashtags animate-in">
         <span class="hashtag">#AI</span>
         <span class="hashtag">#DI</span>
@@ -107,166 +232,549 @@
         <span class="hashtag">#Telefonas</span>
         <span class="hashtag">#Lietuva</span>
     </div>
-    <section class="follow-section animate-in">
-        <h2>🤖 Sekite Mane</h2>
-        <p>Prisijunkite prie bendruomenės visose platformose</p>
-        <div class="social-grid">
-            <a href="https://www.facebook.com/share/18FoYkY2XX/" target="_blank" class="social-card">
-                <div class="icon fb"><i class="fab fa-facebook-f"></i></div>
-                <div class="info"><div class="name">Facebook</div><div class="handle">DI Gudrybės</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://www.instagram.com/dlgudrybes" target="_blank" class="social-card">
-                <div class="icon ig"><i class="fab fa-instagram"></i></div>
-                <div class="info"><div class="name">Instagram</div><div class="handle">@dlgudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://t.me/digudrybe0" target="_blank" class="social-card">
-                <div class="icon tg"><i class="fab fa-telegram-plane"></i></div>
-                <div class="info"><div class="name">Telegram</div><div class="handle">@digudrybe0</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://youtube.com/@digudrybes?si=a66-Bjd-1uBHXR4F" target="_blank" class="social-card">
-                <div class="icon yt"><i class="fab fa-youtube"></i></div>
-                <div class="info"><div class="name">YouTube</div><div class="handle">@digudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://tiktok.com/@di.gudrybes" target="_blank" class="social-card">
-                <div class="icon tt"><i class="fab fa-tiktok"></i></div>
-                <div class="info"><div class="name">TikTok</div><div class="handle">@di.gudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://www.threads.com/@dlgudrybes?invite=0" target="_blank" class="social-card">
-                <div class="icon th"><i class="fab fa-threads"></i></div>
-                <div class="info"><div class="name">Threads</div><div class="handle">@dlgudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://x.com/DIGudrybes" target="_blank" class="social-card">
-                <div class="icon x"><i class="fab fa-x-twitter"></i></div>
-                <div class="info"><div class="name">X (Twitter)</div><div class="handle">@DIGudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://pin.it/6pRhv7UKO" target="_blank" class="social-card">
-                <div class="icon pt"><i class="fab fa-pinterest-p"></i></div>
-                <div class="info"><div class="name">Pinterest</div><div class="handle">DI Gudrybės</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://discord.com/users/digudrybes" target="_blank" class="social-card">
-                <div class="icon dc"><i class="fab fa-discord"></i></div>
-                <div class="info"><div class="name">Discord</div><div class="handle">digudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
-            <a href="https://www.reddit.com/u/DI_Gudrybes/s/zW9qQkdLYf" target="_blank" class="social-card">
-                <div class="icon rd"><i class="fab fa-reddit-alien"></i></div>
-                <div class="info"><div class="name">Reddit</div><div class="handle">u/DI_Gudrybes</div></div>
-                <i class="fas fa-arrow-right arrow"></i>
-            </a>
+
+    <section class="about-section animate-in">
+        <h2 data-i18n="about">📖 Apie Mus</h2>
+        <div class="about-container">
+            <p data-i18n="aboutText1">DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės naujausiais dirbtinio intelekto įrankiais, technologiniais triukais ir idėjomis pradedantiesiems.</p>
+            <p data-i18n="aboutText2">Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🚀</p>
+            <ul>
+                <li data-i18n="aboutItem1">DI įrankių apžvalgos ir pamokos</li>
+                <li data-i18n="aboutItem2">Telefono ir kompiuterio triukai</li>
+                <li data-i18n="aboutItem3">Internetinio uždarbio galimybės</li>
+                <li data-i18n="aboutItem4">Bendruomenės palaikymas</li>
+            </ul>
         </div>
     </section>
-    <section class="affiliate-section animate-in">
-        <h2>💰 Internetinis Uždarbis</h2>
-        <p>Užsiregistruokite per mano nuorodas ir pradėkite uždirbti internete!</p>
-        <a href="#uzdarbis" class="affiliate-btn">🚀 Peržiūrėti Uždarbio Galimybes</a>
-    </section>
-    <section class="chat-section animate-in">
-        <h2>💬 Pokalbių Kambarys</h2>
-        <div class="chat-container">
-            <div class="chat-header">
-                <div class="avatar">🤖</div>
-                <div>
-                    <div style="font-weight: 600;">DI Gudrybių Asistentas</div>
-                    <div class="status"><span style="width: 8px; height: 8px; background: #00ff88; border-radius: 50%; display: inline-block;"></span>Prisijungęs</div>
+
+    <div class="protected-content" id="protectedContent">
+        <section class="follow-section animate-in">
+            <h2 data-i18n="followMe">🤖 Sekite Mane</h2>
+            <p data-i18n="followText">Prisijunkite prie bendruomenės visose platformose</p>
+            <div class="social-grid">
+                <a href="https://www.facebook.com/share/18FoYkY2XX/" target="_blank" class="social-card">
+                    <div class="icon fb"><i class="fab fa-facebook-f"></i></div>
+                    <div class="info"><div class="name">Facebook</div><div class="handle">DI Gudrybės</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://www.instagram.com/dlgudrybes" target="_blank" class="social-card">
+                    <div class="icon ig"><i class="fab fa-instagram"></i></div>
+                    <div class="info"><div class="name">Instagram</div><div class="handle">@dlgudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://t.me/digudrybe0" target="_blank" class="social-card">
+                    <div class="icon tg"><i class="fab fa-telegram-plane"></i></div>
+                    <div class="info"><div class="name">Telegram</div><div class="handle">@digudrybe0</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://youtube.com/@digudrybes?si=a66-Bjd-1uBHXR4F" target="_blank" class="social-card">
+                    <div class="icon yt"><i class="fab fa-youtube"></i></div>
+                    <div class="info"><div class="name">YouTube</div><div class="handle">@digudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://tiktok.com/@di.gudrybes" target="_blank" class="social-card">
+                    <div class="icon tt"><i class="fab fa-tiktok"></i></div>
+                    <div class="info"><div class="name">TikTok</div><div class="handle">@di.gudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://www.threads.com/@dlgudrybes?invite=0" target="_blank" class="social-card">
+                    <div class="icon th"><i class="fab fa-threads"></i></div>
+                    <div class="info"><div class="name">Threads</div><div class="handle">@dlgudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://x.com/DIGudrybes" target="_blank" class="social-card">
+                    <div class="icon x"><i class="fab fa-x-twitter"></i></div>
+                    <div class="info"><div class="name">X (Twitter)</div><div class="handle">@DIGudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://pin.it/6pRhv7UKO" target="_blank" class="social-card">
+                    <div class="icon pt"><i class="fab fa-pinterest-p"></i></div>
+                    <div class="info"><div class="name">Pinterest</div><div class="handle">DI Gudrybės</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://discord.com/users/digudrybes" target="_blank" class="social-card">
+                    <div class="icon dc"><i class="fab fa-discord"></i></div>
+                    <div class="info"><div class="name">Discord</div><div class="handle">digudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+                <a href="https://www.reddit.com/u/DI_Gudrybes/s/zW9qQkdLYf" target="_blank" class="social-card">
+                    <div class="icon rd"><i class="fab fa-reddit-alien"></i></div>
+                    <div class="info"><div class="name">Reddit</div><div class="handle">u/DI_Gudrybes</div></div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+            </div>
+        </section>
+
+        <section class="affiliate-section animate-in">
+            <h2 data-i18n="earnings">💰 Internetinis Uždarbis</h2>
+            <p data-i18n="earningsText">Užsiregistruokite per mano nuorodas ir pradėkite uždirbti internete!</p>
+            <a href="#uzdarbis" class="affiliate-btn" data-i18n="earningsBtn">🚀 Peržiūrėti Uždarbio Galimybes</a>
+        </section>
+
+        <section class="faq-section animate-in">
+            <h2 data-i18n="faq">❓ Dažniausiai Užduodami Klausimai</h2>
+            <div class="faq-container">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-i18n="faqQ1">Kas yra DI Gudrybės.eu?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA1">DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės dirbtinio intelekto (DI/AI) įrankiais, technologiniais triukais ir idėjomis pradedantiesiems. Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🤖</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-i18n="faqQ2">Ar registracija yra nemokama?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA2">Taip, registracija yra visiškai nemokama! 👤 Užsiregistravę gausite prieigą prie papildomo turinio, pokalbių kambario ir galėsite užsiprenumeruoti naujienlaiškį. Jokių paslėptų mokesčių!</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-i18n="faqQ3">Kaip galiu užsidirbti internetu?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA3">Internete galima uždirbti įvairiais būdais: partnerių (affiliate) programos, freelansas, turinio kūrimas socialiniuose tinkluose, DI įrankių naudojimas darbui automatizuoti. 💰 Peržiūrėkite mūsų "Internetinis Uždarbis" skiltį viršuje – ten rasite patikrintas partnerių programas ir nuorodas, per kurias galite pradėti uždirbti jau šiandien!</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-i18n="faqQ4">Ar mano duomenys yra saugūs?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA4">Taip, jūsų duomenys yra saugūs! 🔒 Slaptažodžiai yra šifruojami (hash'uojami) prieš saugojimą, o visa informacija saugoma tik jūsų naršyklėje (localStorage) – mes nekaupiame ir neturime prieigos prie jūsų duomenų serveriuose. Jūsų privatumas mums svarbiausia!</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-i18n="faqQ5">Kur galiu su jumis susisiekti?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA5">Galite susisiekti keliais būdais: 📧 El. paštu – digudrybes@gmail.com | 💬 Socialiniuose tinkluose – Facebook, Instagram, Telegram, YouTube, TikTok, X (Twitter), Threads, Pinterest, Discord, Reddit (nuorodos viršuje). Atsakome kuo greičiau!</div>
                 </div>
             </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">Sveiki! 👋 Aš esu DI Gudrybių asistentas. Kaip galiu jums padėti šiandien?</div>
+        </section>
+
+        <section class="chat-section animate-in">
+            <h2 data-i18n="chat">💬 Pokalbių Kambarys</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="avatar">🤖</div>
+                    <div>
+                        <div style="font-weight: 600;" data-i18n="chatBot">DI Gudrybių Asistentas</div>
+                        <div class="status"><span style="width: 8px; height: 8px; background: #00ff88; border-radius: 50%; display: inline-block;"></span><span data-i18n="online">Prisijungęs</span></div>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot" data-i18n="chatWelcome">Sveiki! 👋 Aš esu DI Gudrybių asistentas. Kaip galiu jums padėti šiandien?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Rašykite žinutę..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
-            <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Rašykite žinutę..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </section>
+
+        <section class="newsletter-section animate-in">
+            <h2 data-i18n="newsletter">📧 Naujienlaiškis</h2>
+            <div class="newsletter-container">
+                <p data-i18n="newsletterText">Užsiprenumeruokite mūsų naujienlaiškį ir pirmieji sužinokite apie naujausius DI įrankius, triukus ir uždarbio galimybes!</p>
+                <div class="newsletter-form">
+                    <input type="email" id="newsletterEmail" placeholder="jusu@email.com">
+                    <button onclick="subscribeNewsletter()" data-i18n="subscribe">Prenumeruoti</button>
+                </div>
+                <div class="newsletter-success" id="newsletterSuccess">🎉 Sėkmingai užsiprenumeravote!</div>
+            </div>
+        </section>
+    </div>
+
+    <div class="login-prompt" id="loginPrompt">
+        <div style="background: linear-gradient(135deg, rgba(0,200,255,0.1), rgba(123,44,191,0.1)); border: 1px solid rgba(0,200,255,0.2); border-radius: 20px; padding: 40px 30px; max-width: 700px; margin: 0 auto;">
+            <i class="fas fa-lock" style="font-size: 3rem; color: #00c8ff; margin-bottom: 15px;"></i>
+            <h3 style="font-size: 1.6rem; margin-bottom: 15px; color: #e0e0ff;" data-i18n="lockedTitle">🔒 Turinys užrakintas</h3>
+            <p style="font-size: 1.1rem; color: #8899cc; margin-bottom: 25px; line-height: 1.6;" data-i18n="lockedText">Užsiregistruokite arba prisijunkite, kad matytumėte socialinius tinklus, pokalbių kambarį, DUK ir kitą turinį!</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="login-prompt-btn" onclick="openModal(); switchModalTab('register');" data-i18n="registerNow">🚀 Užsiregistruoti</button>
+                <button class="login-prompt-btn" onclick="openModal(); switchModalTab('login');" style="background: linear-gradient(135deg, #7b2cbf, #ff006e);" data-i18n="loginNow">🔓 Prisijungti</button>
             </div>
         </div>
-    </section>
-    <section class="reg-section animate-in">
-        <h2>👤 Vartotojo Zona</h2>
-        <div class="reg-container">
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('login')" id="loginTab">Registruotis</button>
-                <button class="tab" onclick="switchTab('logout')" id="logoutTab">Išsiregistruoti</button>
-            </div>
-            <div id="loginForm">
-                <div class="form-group"><label>🎭 Slapyvardis (Nik)</label><input type="text" id="nickname" placeholder="Įveskite savo slapyvardį..."></div>
-                <div class="form-group"><label>📧 El. paštas</label><input type="email" id="email" placeholder="jusu@email.com"></div>
-                <div class="form-group"><label>🔑 Slaptažodis</label><input type="password" id="password" placeholder="Sukurkite slaptažodį..."></div>
-                <button class="submit-btn" onclick="register()">🚀 Registruotis</button>
-            </div>
-            <div id="logoutForm" style="display: none;">
-                <div class="form-group"><label>🎭 Slapyvardis (Nik)</label><input type="text" id="logoutNickname" placeholder="Įveskite slapyvardį..."></div>
-                <button class="submit-btn" onclick="logout()">🚪 Išsiregistruoti</button>
-            </div>
-        </div>
-    </section>
+    </div>
+
     <footer class="footer">
         <a href="mailto:digudrybes@gmail.com" class="email"><i class="fas fa-envelope"></i>digudrybes@gmail.com</a>
-        <p class="copyright">© 2025 DI Gudrybės.eu. Visos teisės saugomos. | Sukurta su 🤖 Lietuvoje</p>
+        <p class="copyright" data-i18n="copyright">© 2025 DI Gudrybės.eu. Visos teisės saugomos. | Sukurta su 🤖 Lietuvoje</p>
     </footer>
+
     <script>
+        const translations = {
+            lt: {
+                login: "Prisijungti", logout: "Atsijungti", register: "Registruotis", signin: "Prisijungti",
+                userZone: "👤 Vartotojo Zona", nickname: "🎭 Slapyvardis", email: "📧 El. paštas", password: "🔑 Slaptažodis",
+                registerBtn: "🚀 Registruotis", loginBtn: "🔓 Prisijungti",
+                title: "DI Gudrybės.eu", subtitle: "🌍 Skaitmeninio pasaulio gudrybės",
+                tricks: "Triukai", ideas: "Idėjos pradedantiesiems",
+                about: "📖 Apie Mus", aboutText1: "DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės naujausiais dirbtinio intelekto įrankiais, technologiniais triukais ir idėjomis pradedantiesiems.",
+                aboutText2: "Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🚀",
+                aboutItem1: "DI įrankių apžvalgos ir pamokos", aboutItem2: "Telefono ir kompiuterio triukai",
+                aboutItem3: "Internetinio uždarbio galimybės", aboutItem4: "Bendruomenės palaikymas",
+                followMe: "🤖 Sekite Mane", followText: "Prisijunkite prie bendruomenės visose platformose",
+                earnings: "💰 Internetinis Uždarbis", earningsText: "Užsiregistruokite per mano nuorodas ir pradėkite uždirbti internete!",
+                earningsBtn: "🚀 Peržiūrėti Uždarbio Galimybes",
+                faq: "❓ Dažniausiai Užduodami Klausimai",
+                faqQ1: "Kas yra DI Gudrybės.eu?", faqA1: "DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės dirbtinio intelekto (DI/AI) įrankiais, technologiniais triukais ir idėjomis pradedantiesiems. Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🤖",
+                faqQ2: "Ar registracija yra nemokama?", faqA2: "Taip, registracija yra visiškai nemokama! 👤 Užsiregistravę gausite prieigą prie papildomo turinio, pokalbių kambario ir galėsite užsiprenumeruoti naujienlaiškį. Jokių paslėptų mokesčių!",
+                faqQ3: "Kaip galiu užsidirbti internetu?", faqA3: 'Internete galima uždirbti įvairiais būdais: partnerių (affiliate) programos, freelansas, turinio kūrimas socialiniuose tinkluose, DI įrankių naudojimas darbui automatizuoti. 💰 Peržiūrėkite mūsų "Internetinis Uždarbis" skiltį viršuje – ten rasite patikrintas partnerių programas ir nuorodas, per kurias galite pradėti uždirbti jau šiandien!',
+                faqQ4: "Ar mano duomenys yra saugūs?", faqA4: "Taip, jūsų duomenys yra saugūs! 🔒 Slaptažodžiai yra šifruojami (hash'uojami) prieš saugojimą, o visa informacija saugoma tik jūsų naršyklėje (localStorage) – mes nekaupiame ir neturime prieigos prie jūsų duomenų serveriuose. Jūsų privatumas mums svarbiausia!",
+                faqQ5: "Kur galiu su jumis susisiekti?", faqA5: "Galite susisiekti keliais būdais: 📧 El. paštu – digudrybes@gmail.com | 💬 Socialiniuose tinkluose – Facebook, Instagram, Telegram, YouTube, TikTok, X (Twitter), Threads, Pinterest, Discord, Reddit (nuorodos viršuje). Atsakome kuo greičiau!",
+                chat: "💬 Pokalbių Kambarys", chatBot: "DI Gudrybių Asistentas", online: "Prisijungęs",
+                chatWelcome: "Sveiki! 👋 Aš esu DI Gudrybių asistentas. Kaip galiu jums padėti šiandien?",
+                newsletter: "📧 Naujienlaiškis", newsletterText: "Užsiprenumeruokite mūsų naujienlaiškį ir pirmieji sužinokite apie naujausius DI įrankius, triukus ir uždarbio galimybes!",
+                subscribe: "Prenumeruoti", lockedTitle: "🔒 Turinys užrakintas",
+                lockedText: "Užsiregistruokite arba prisijunkite, kad matytumėte socialinius tinklus, pokalbių kambarį, DUK ir kitą turinį!",
+                registerNow: "🚀 Užsiregistruoti", loginNow: "🔓 Prisijungti",
+                copyright: "© 2025 DI Gudrybės.eu. Visos teisės saugomos. | Sukurta su 🤖 Lietuvoje"
+            },
+            ru: {
+                login: "Войти", logout: "Выйти", register: "Регистрация", signin: "Войти",
+                userZone: "👤 Личный Кабинет", nickname: "🎭 Никнейм", email: "📧 Email", password: "🔑 Пароль",
+                registerBtn: "🚀 Зарегистрироваться", loginBtn: "🔓 Войти",
+                title: "DI Gudrybės.eu", subtitle: "🌍 Хитрости цифрового мира",
+                tricks: "Лайфхаки", ideas: "Идеи для начинающих",
+                about: "📖 О Нас", aboutText1: "DI Gudrybės.eu – это литовская платформа, где мы делимся новейшими инструментами искусственного интеллекта, технологическими лайфхаками и идеями для начинающих.",
+                aboutText2: "Наша миссия – сделать технологии доступными каждому! 🚀",
+                aboutItem1: "Обзоры и уроки по ИИ", aboutItem2: "Лайфхаки для телефона и компьютера",
+                aboutItem3: "Возможности заработка в интернете", aboutItem4: "Поддержка сообщества",
+                followMe: "🤖 Подписывайтесь", followText: "Присоединяйтесь к сообществу на всех платформах",
+                earnings: "💰 Заработок в Интернете", earningsText: "Зарегистрируйтесь по моим ссылкам и начните зарабатывать в интернете!",
+                earningsBtn: "🚀 Смотреть Возможности Заработка",
+                faq: "❓ Часто Задаваемые Вопросы",
+                faqQ1: "Что такое DI Gudrybės.eu?", faqA1: "DI Gudrybės.eu – это литовская платформа, где мы делимся инструментами искусственного интеллекта (ИИ/AI), технологическими лайфхаками и идеями для начинающих. Наша миссия – сделать технологии доступными каждому! 🤖",
+                faqQ2: "Регистрация бесплатная?", faqA2: "Да, регистрация совершенно бесплатна! 👤 После регистрации вы получите доступ к дополнительному контенту, чату и сможете подписаться на рассылку. Никаких скрытых платежей!",
+                faqQ3: "Как я могу заработать в интернете?", faqA3: 'В интернете можно зарабатывать разными способами: партнёрские (affiliate) программы, фриланс, создание контента в соцсетях, использование ИИ-инструментов для автоматизации работы. 💰 Посмотрите наш раздел "Заработок в Интернете" выше – там вы найдёте проверенные партнёрские программы и ссылки, по которым можно начать зарабатывать уже сегодня!',
+                faqQ4: "Мои данные в безопасности?", faqA4: "Да, ваши данные в безопасности! 🔒 Пароли шифруются (хэшируются) перед сохранением, вся информация хранится только в вашем браузере (localStorage) – мы не собираем и не имеем доступа к вашим данным на серверах. Ваша конфиденциальность – наш приоритет!",
+                faqQ5: "Как с вами связаться?", faqA5: "Связаться можно несколькими способами: 📧 Email – digudrybes@gmail.com | 💬 В социальных сетях – Facebook, Instagram, Telegram, YouTube, TikTok, X (Twitter), Threads, Pinterest, Discord, Reddit (ссылки выше). Отвечаем как можно быстрее!",
+                chat: "💬 Чат", chatBot: "Ассистент DI Gudrybės", online: "В сети",
+                chatWelcome: "Здравствуйте! 👋 Я ассистент DI Gudrybės. Чем могу помочь сегодня?",
+                newsletter: "📧 Рассылка", newsletterText: "Подпишитесь на нашу рассылку и узнавайте первыми о новейших ИИ-инструментах, лайфхаках и возможностях заработка!",
+                subscribe: "Подписаться", lockedTitle: "🔒 Контент заблокирован",
+                lockedText: "Войдите или зарегистрируйтесь, чтобы увидеть социальные сети, чат, FAQ и другой контент!",
+                registerNow: "🚀 Зарегистрироваться", loginNow: "🔓 Войти",
+                copyright: "© 2025 DI Gudrybės.eu. Все права защищены. | Создано с 🤖 в Литве"
+            },
+            en: {
+                login: "Login", logout: "Logout", register: "Register", signin: "Sign In",
+                userZone: "👤 User Zone", nickname: "🎭 Nickname", email: "📧 Email", password: "🔑 Password",
+                registerBtn: "🚀 Register", loginBtn: "🔓 Sign In",
+                title: "DI Gudrybės.eu", subtitle: "🌍 Digital World Hacks",
+                tricks: "Tricks", ideas: "Ideas for Beginners",
+                about: "📖 About Us", aboutText1: "DI Gudrybės.eu is a Lithuanian platform where we share the latest AI tools, tech tricks, and ideas for beginners.",
+                aboutText2: "Our mission is to make technology accessible to everyone! 🚀",
+                aboutItem1: "AI tool reviews and tutorials", aboutItem2: "Phone and computer tricks",
+                aboutItem3: "Online earning opportunities", aboutItem4: "Community support",
+                followMe: "🤖 Follow Me", followText: "Join the community on all platforms",
+                earnings: "💰 Online Earnings", earningsText: "Register through my links and start earning online!",
+                earningsBtn: "🚀 View Earning Opportunities",
+                faq: "❓ Frequently Asked Questions",
+                faqQ1: "What is DI Gudrybės.eu?", faqA1: "DI Gudrybės.eu is a Lithuanian platform where we share artificial intelligence (AI) tools, tech tricks, and ideas for beginners. Our mission is to make technology accessible to everyone! 🤖",
+                faqQ2: "Is registration free?", faqA2: "Yes, registration is completely free! 👤 After registering, you'll get access to additional content, chat room, and can subscribe to the newsletter. No hidden fees!",
+                faqQ3: "How can I earn money online?", faqA3: 'You can earn online in various ways: affiliate programs, freelancing, content creation on social media, using AI tools for work automation. 💰 Check out our "Online Earnings" section above – you'll find verified affiliate programs and links to start earning today!',
+                faqQ4: "Is my data secure?", faqA4: "Yes, your data is secure! 🔒 Passwords are encrypted (hashed) before storage, and all information is kept only in your browser (localStorage) – we don't collect or have access to your data on servers. Your privacy is our top priority!",
+                faqQ5: "How can I contact you?", faqA5: "You can contact us in several ways: 📧 Email – digudrybes@gmail.com | 💬 On social media – Facebook, Instagram, Telegram, YouTube, TikTok, X (Twitter), Threads, Pinterest, Discord, Reddit (links above). We respond as quickly as possible!",
+                chat: "💬 Chat Room", chatBot: "DI Gudrybės Assistant", online: "Online",
+                chatWelcome: "Hello! 👋 I'm the DI Gudrybės assistant. How can I help you today?",
+                newsletter: "📧 Newsletter", newsletterText: "Subscribe to our newsletter and be the first to know about the latest AI tools, tricks, and earning opportunities!",
+                subscribe: "Subscribe", lockedTitle: "🔒 Content Locked",
+                lockedText: "Login or register to see social networks, chat, FAQ, and other content!",
+                registerNow: "🚀 Register Now", loginNow: "🔓 Login Now",
+                copyright: "© 2025 DI Gudrybės.eu. All rights reserved. | Made with 🤖 in Lithuania"
+            }
+        };
+
+        let currentLang = localStorage.getItem('digudrybes_lang') || 'lt';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            localStorage.setItem('digudrybes_lang', lang);
+        }
+
+        function openModal() { document.getElementById('loginModal').classList.add('show'); }
+        function closeModal() { document.getElementById('loginModal').classList.remove('show'); }
+
+        function switchModalTab(tab) {
+            document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+            if (tab === 'register') {
+                document.querySelectorAll('.modal-tab')[0].classList.add('active');
+                document.getElementById('modalRegisterForm').style.display = 'block';
+                document.getElementById('modalLoginForm').style.display = 'none';
+            } else {
+                document.querySelectorAll('.modal-tab')[1].classList.add('active');
+                document.getElementById('modalRegisterForm').style.display = 'none';
+                document.getElementById('modalLoginForm').style.display = 'block';
+            }
+        }
+
+        function checkAuth() {
+            const currentUser = localStorage.getItem('digudrybes_current_user');
+            const protectedContent = document.getElementById('protectedContent');
+            const loginPrompt = document.getElementById('loginPrompt');
+            const loginBtn = document.getElementById('loginBtn');
+            const userBadge = document.getElementById('userBadge');
+            const userName = document.getElementById('userName');
+
+            if (currentUser) {
+                protectedContent.classList.add('show');
+                loginPrompt.style.display = 'none';
+                loginBtn.style.display = 'none';
+                userBadge.classList.add('show');
+                userName.textContent = currentUser;
+            } else {
+                protectedContent.classList.remove('show');
+                loginPrompt.style.display = 'block';
+                loginBtn.style.display = 'block';
+                userBadge.classList.remove('show');
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('digudrybes_current_user');
+            checkAuth();
+            closeModal();
+        }
+
+        function validateModalNickname() {
+            const val = document.getElementById('modalNickname').value.trim();
+            const err = document.getElementById('modalNicknameError');
+            const input = document.getElementById('modalNickname');
+            const regex = /^[a-zA-Z0-9_]{3,20}$/;
+            if (val && !regex.test(val)) {
+                err.classList.add('show'); input.classList.add('error'); input.classList.remove('success');
+                return false;
+            }
+            err.classList.remove('show'); input.classList.remove('error');
+            if (val) input.classList.add('success');
+            return true;
+        }
+
+        function validateModalEmail() {
+            const val = document.getElementById('modalEmail').value.trim();
+            const err = document.getElementById('modalEmailError');
+            const input = document.getElementById('modalEmail');
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (val && !regex.test(val)) {
+                err.classList.add('show'); input.classList.add('error'); input.classList.remove('success');
+                return false;
+            }
+            err.classList.remove('show'); input.classList.remove('error');
+            if (val) input.classList.add('success');
+            return true;
+        }
+
+        function checkModalPasswordStrength() {
+            const password = document.getElementById('modalPassword').value;
+            const bar = document.getElementById('modalPasswordStrength');
+            const label = document.getElementById('modalStrengthLabel');
+            const err = document.getElementById('modalPasswordError');
+            const input = document.getElementById('modalPassword');
+
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            bar.className = 'password-strength';
+            if (password.length === 0) { label.textContent = ''; return false; }
+            else if (strength <= 2) { bar.classList.add('weak'); label.textContent = currentLang === 'lt' ? 'Silpnas' : currentLang === 'ru' ? 'Слабый' : 'Weak'; label.style.color = '#ff4444'; }
+            else if (strength <= 4) { bar.classList.add('medium'); label.textContent = currentLang === 'lt' ? 'Vidutinis' : currentLang === 'ru' ? 'Средний' : 'Medium'; label.style.color = '#ffaa00'; }
+            else { bar.classList.add('strong'); label.textContent = currentLang === 'lt' ? 'Stiprus' : currentLang === 'ru' ? 'Сильный' : 'Strong'; label.style.color = '#00ff88'; }
+
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (password && !regex.test(password)) {
+                err.classList.add('show'); input.classList.add('error'); input.classList.remove('success');
+                return false;
+            }
+            err.classList.remove('show'); input.classList.remove('error');
+            if (password) input.classList.add('success');
+            return true;
+        }
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString(16);
+        }
+
+        function modalRegister() {
+            const nickname = document.getElementById('modalNickname').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
+            const password = document.getElementById('modalPassword').value;
+
+            if (!nickname || !email || !password) {
+                alert(currentLang === 'lt' ? '⚠️ Prašome užpildyti visus laukelius!' : currentLang === 'ru' ? '⚠️ Пожалуйста, заполните все поля!' : '⚠️ Please fill in all fields!');
+                return;
+            }
+
+            if (!validateModalNickname() || !validateModalEmail() || !checkModalPasswordStrength()) {
+                alert(currentLang === 'lt' ? '⚠️ Prašome ištaisyti klaidas formoje!' : currentLang === 'ru' ? '⚠️ Пожалуйста, исправьте ошибки в форме!' : '⚠️ Please fix errors in the form!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('digudrybes_users') || '[]');
+
+            if (users.find(u => u.nickname === nickname)) {
+                alert(currentLang === 'lt' ? '⚠️ Šis slapyvardis jau užimtas!' : currentLang === 'ru' ? '⚠️ Этот никнейм уже занят!' : '⚠️ This nickname is already taken!');
+                return;
+            }
+
+            if (users.find(u => u.email === email)) {
+                alert(currentLang === 'lt' ? '⚠️ Šis el. paštas jau registruotas!' : currentLang === 'ru' ? '⚠️ Этот email уже зарегистрирован!' : '⚠️ This email is already registered!');
+                return;
+            }
+
+            const hashedPassword = hashPassword(password);
+            users.push({ nickname, email, password: hashedPassword, date: new Date().toISOString() });
+            localStorage.setItem('digudrybes_users', JSON.stringify(users));
+
+            localStorage.setItem('digudrybes_current_user', nickname);
+            checkAuth();
+            closeModal();
+
+            alert(currentLang === 'lt' ? '🎉 Sveikiname, ' + nickname + '! Jūs sėkmingai užsiregistravote!' : currentLang === 'ru' ? '🎉 Поздравляем, ' + nickname + '! Вы успешно зарегистрировались!' : '🎉 Congratulations, ' + nickname + '! You have successfully registered!');
+
+            document.getElementById('modalNickname').value = '';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalPassword').value = '';
+            document.getElementById('modalPasswordStrength').className = 'password-strength';
+            document.getElementById('modalStrengthLabel').textContent = '';
+            document.querySelectorAll('#modalRegisterForm .form-group input').forEach(i => i.classList.remove('success', 'error'));
+        }
+
+        function modalLogin() {
+            const nickname = document.getElementById('modalLoginNickname').value.trim();
+            const password = document.getElementById('modalLoginPassword').value;
+
+            if (!nickname || !password) {
+                alert(currentLang === 'lt' ? '⚠️ Prašome įvesti slapyvardį ir slaptažodį!' : currentLang === 'ru' ? '⚠️ Пожалуйста, введите никнейм и пароль!' : '⚠️ Please enter nickname and password!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('digudrybes_users') || '[]');
+            const user = users.find(u => u.nickname === nickname);
+
+            if (!user) {
+                alert(currentLang === 'lt' ? '⚠️ Vartotojas nerastas!' : currentLang === 'ru' ? '⚠️ Пользователь не найден!' : '⚠️ User not found!');
+                return;
+            }
+
+            if (user.password !== hashPassword(password)) {
+                alert(currentLang === 'lt' ? '⚠️ Neteisingas slaptažodis!' : currentLang === 'ru' ? '⚠️ Неверный пароль!' : '⚠️ Incorrect password!');
+                return;
+            }
+
+            localStorage.setItem('digudrybes_current_user', nickname);
+            checkAuth();
+            closeModal();
+
+            alert(currentLang === 'lt' ? '👋 Sveiki sugrįžę, ' + nickname + '!' : currentLang === 'ru' ? '👋 С возвращением, ' + nickname + '!' : '👋 Welcome back, ' + nickname + '!');
+
+            document.getElementById('modalLoginNickname').value = '';
+            document.getElementById('modalLoginPassword').value = '';
+        }
+
+        const chatResponses = {
+            sveiki: ["Sveiki! 👋 Kaip galiu padėti?", "Labas! 😊 Kuo galiu būti naudingas?", "Sveiki atvykę! 🎉 Ką norėtumėte sužinoti?"],
+            labas: ["Labas! 👋 Kaip sekasi?", "Labas! 😊 Kuo galiu padėti?"],
+            diena: ["Labas! ☀️ Graži diena, ar ne?"],
+            vakaras: ["Labas vakaras! 🌙 Kuo galiu padėti?"],
+            ačiū: ["Nėra už ką! 🙏 Visada malonu padėti!", "Prašom! 😊 Jei dar ką nors reikia – kreipkitės!"],
+            bye: ["Iki! 👋 Gražios dienos!", "Viso gero! 🌟 Sugrįžkite vėl!"],
+            di: ["DI (Dirbtinis Intelektas) – tai technologija, kuri moko kompiuterius mokytis ir spręsti uždavinius! 🤖 Norite sužinoti daugiau apie konkrečius DI įrankius?", "DI – tai ateitis! 🚀 Turime daug pamokų apie ChatGPT, Midjourney ir kitus įrankius."],
+            ai: ["AI (Artificial Intelligence) lietuviškai – Dirbtinis Intelektas! 🤖", "AI padeda automatizuoti darbus, kurti turinį ir daug daugiau! 💡"],
+            chatgpt: ["ChatGPT – populiariausias DI pokalbių robotas! 💬 Juo galite rašyti tekstus, programuoti, mokytis ir daug daugiau."],
+            midjourney: ["Midjourney – DI įrankis vaizdams kurti! 🎨 Įvedate aprašymą, o DI sukuria nuostabų paveikslėlį."],
+            telefonas: ["Turime daug telefono triukų! 📱 Pažiūrėkite mūsų YouTube arba TikTok kanalus!"],
+            triukas: ["Mūsų triukai padeda sutaupyti laiko ir padaryti kasdienį gyvenimą lengvesnį! 💡 Sekite mus socialiniuose tinkluose!"],
+            uždarbis: ["Interneto uždarbis yra realus! 💰 Peržiūrėkite mūsų "Internetinis Uždarbis" skiltį viršuje."],
+            pinigai: ["Internete galima uždirbti įvairiais būdais: partnerių programos, freelansas, turinio kūrimas! 💵"],
+            registracija: ["Registracija nemokama! 👤 Užsiregistruokite žemiau esančioje formoje."],
+            pagalba: ["Žinoma! 🆘 Rašykite, kuo galiu padėti. Taip pat galite rašyti mums el. paštu digudrybes@gmail.com"],
+            kontaktai: ["Susisiekite su mumis: digudrybes@gmail.com 📧 arba rašykite į bet kurį socialinį tinklą!"],
+            default: ["Įdomu! 🤔 Papasakokite plačiau...", "Supratau! 💡 Ar norite sužinoti daugiau apie DI įrankius?", "Puiku! 🎯 Kaip dar galiu padėti?", "Ačiū, kad rašote! 🙏 Patikrinkite mūsų socialinius tinklus!", "Ačiū už žinutę! 📩 Atsakysiu kaip galėsiu greičiau."]
+        };
+
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const messages = document.getElementById('chatMessages');
-            const text = input.value.trim();
+            const text = input.value.trim().toLowerCase();
             if (!text) return;
+
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
-            userMsg.textContent = text;
+            userMsg.textContent = input.value.trim();
             messages.appendChild(userMsg);
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
+
             setTimeout(() => {
                 const botMsg = document.createElement('div');
                 botMsg.className = 'message bot';
-                const responses = ['Ačiū už žinutę! 📩 Atsakysiu kaip galėsiu greičiau.','Įdomu! 🤔 Papasakokite plačiau...','Supratau! 💡 Ar norite sužinoti daugiau apie DI įrankius?','Puiku! 🎯 Kaip dar galiu padėti?','Ačiū, kad rašote! 🙏 Patikrinkite mūsų socialinius tinklus!'];
-                botMsg.textContent = responses[Math.floor(Math.random() * responses.length)];
+                let response = chatResponses.default[Math.floor(Math.random() * chatResponses.default.length)];
+
+                for (const key in chatResponses) {
+                    if (text.includes(key)) {
+                        const responses = chatResponses[key];
+                        response = responses[Math.floor(Math.random() * responses.length)];
+                        break;
+                    }
+                }
+
+                botMsg.textContent = response;
                 messages.appendChild(botMsg);
                 messages.scrollTop = messages.scrollHeight;
-            }, 1000);
+            }, 800);
         }
-        function switchTab(tab) {
-            const loginTab = document.getElementById('loginTab');
-            const logoutTab = document.getElementById('logoutTab');
-            const loginForm = document.getElementById('loginForm');
-            const logoutForm = document.getElementById('logoutForm');
-            if (tab === 'login') {
-                loginTab.classList.add('active');
-                logoutTab.classList.remove('active');
-                loginForm.style.display = 'block';
-                logoutForm.style.display = 'none';
-            } else {
-                logoutTab.classList.add('active');
-                loginTab.classList.remove('active');
-                loginForm.style.display = 'none';
-                logoutForm.style.display = 'block';
+
+        function toggleFaq(item) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(i => {
+                if (i !== item) i.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value.trim();
+            const successMsg = document.getElementById('newsletterSuccess');
+
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert(currentLang === 'lt' ? '⚠️ Prašome įvesti teisingą el. pašto adresą!' : currentLang === 'ru' ? '⚠️ Пожалуйста, введите правильный email!' : '⚠️ Please enter a valid email address!');
+                return;
             }
+
+            const subscribers = JSON.parse(localStorage.getItem('digudrybes_newsletter') || '[]');
+            if (subscribers.includes(email)) {
+                alert(currentLang === 'lt' ? '📧 Šis el. paštas jau užsiprenumeravęs!' : currentLang === 'ru' ? '📧 Этот email уже подписан!' : '📧 This email is already subscribed!');
+                return;
+            }
+
+            subscribers.push(email);
+            localStorage.setItem('digudrybes_newsletter', JSON.stringify(subscribers));
+            document.getElementById('newsletterEmail').value = '';
+            successMsg.classList.add('show');
+            setTimeout(() => successMsg.classList.remove('show'), 3000);
         }
-        function register() {
-            const nickname = document.getElementById('nickname').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            if (!nickname || !email || !password) { alert('⚠️ Prašome užpildyti visus laukelius!'); return; }
-            const users = JSON.parse(localStorage.getItem('digudrybes_users') || '[]');
-            users.push({ nickname, email, date: new Date().toISOString() });
-            localStorage.setItem('digudrybes_users', JSON.stringify(users));
-            alert('🎉 Sveikiname, ' + nickname + '! Jūs sėkmingai užsiregistravote!');
-            document.getElementById('nickname').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-        }
-        function logout() {
-            const nickname = document.getElementById('logoutNickname').value;
-            if (!nickname) { alert('⚠️ Prašome įvesti slapyvardį!'); return; }
-            alert('👋 Iki, ' + nickname + '! Jūs sėkmingai išsiregistravote.');
-            document.getElementById('logoutNickname').value = '';
-        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -281,6 +789,9 @@
             el.style.transition = 'all 0.8s ease-out';
             observer.observe(el);
         });
+
+        switchLang(currentLang);
+        checkAuth();
     </script>
 </body>
 </html>
