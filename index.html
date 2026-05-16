@@ -60,8 +60,8 @@
         .hashtag { background: rgba(0, 200, 255, 0.1); border: 1px solid rgba(0, 200, 255, 0.3); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; color: #00c8ff; transition: all 0.3s; cursor: default; }
         .hashtag:hover { background: rgba(0, 200, 255, 0.2); transform: translateY(-2px); }
 
+        .section-title { text-align: center; font-size: 1.8rem; margin: 50px auto 20px; display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 800px; }
         .about-section { max-width: 800px; margin: 50px auto; padding: 0 20px; }
-        .about-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .about-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
         .about-container p { color: #8899cc; line-height: 1.8; margin-bottom: 15px; }
         .about-container ul { list-style: none; padding: 0; }
@@ -84,10 +84,6 @@
         .yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
         .tt { background: linear-gradient(135deg, #000000, #333333); }
 
-        .affiliate-section { max-width: 1000px; margin: 50px auto; padding: 40px 20px; background: rgba(0, 200, 255, 0.03); border: 1px solid rgba(0, 200, 255, 0.1); border-radius: 20px; text-align: center; }
-        .affiliate-section h2 { font-size: 1.8rem; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .affiliate-section p { color: #8899cc; margin-bottom: 25px; line-height: 1.6; }
-        
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #8899cc; }
         .form-group input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 18px; color: #e0e0ff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
@@ -198,7 +194,7 @@
     </div>
 
     <section class="about-section animate-in">
-        <h2>📖 Apie Mus</h2>
+        <h2 class="section-title">📖 Apie Mus</h2>
         <div class="about-container">
             <p>DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės naujausiais dirbtinio intelekto įrankiais, technologiniais triukais ir idėjomis pradedantiesiems.</p>
             <p>Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🚀</p>
@@ -212,9 +208,11 @@
     </section>
 
     <div class="protected-content" id="protectedContent">
-        <section class="affiliate-section animate-in">
-            <h2>💰 TOP DI Įrankiai & Kurso</h2>
-            <p>Peržiūrėkite geriausius DI įrankius ir uždarbio galimybes! Kiekvieną kartą kai kas nors perka per jūsų nuorodą - JŪS GAUNAT KOMISIJĄ! 🤑</p>
+        <section class="about-section animate-in">
+            <h2 class="section-title">💰 TOP DI Įrankiai & Kurso</h2>
+            <p style="text-align: center; color: #8899cc; max-width: 800px; margin: 0 auto 30px;">
+                Peržiūrėkite geriausius DI įrankius ir uždarbio galimybes! Kiekvieną kartą kai kas nors perka per jūsų nuorodą - JŪS GAUNAT KOMISIJĄ! 🤑
+            </p>
             
             <div class="social-grid">
                 <!-- ChatGPT -->
@@ -223,7 +221,7 @@
                     <div class="info">
                         <div class="name">ChatGPT Plus</div>
                         <div class="handle">$20/mėn | 30% komisiją</div>
-                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Geriausias AI asistentas. Rašyti, koduoti, analizuoti!</p>
+                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Geriausias AI asistentas!</p>
                     </div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
@@ -234,7 +232,7 @@
                     <div class="info">
                         <div class="name">Midjourney</div>
                         <div class="handle">$10-120/mėn | 30% komisiją</div>
-                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">AI vaizdams kurti. Nuostabus vaizdai per 1 min!</p>
+                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">AI vaizdams kurti!</p>
                     </div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
@@ -245,7 +243,7 @@
                     <div class="info">
                         <div class="name">Notion</div>
                         <div class="handle">Nemokamai | $5 komisiją</div>
-                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Užrašai, bazės, planavimas. NUOSTABUS!</p>
+                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Užrašai, bazės, planavimas!</p>
                     </div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
@@ -256,7 +254,7 @@
                     <div class="info">
                         <div class="name">Google AdSense</div>
                         <div class="handle">Pasyvus | 68% komisiją</div>
-                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Reklamos jūsų svetainėje = Automatinis uždarbis!</p>
+                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Reklamos jūsų svetainėje!</p>
                     </div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
@@ -267,7 +265,7 @@
                     <div class="info">
                         <div class="name">Amazon Associates</div>
                         <div class="handle">5-10% | Pasyvus</div>
-                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Rekomenduoti produktus ir gauti komisiją!</p>
+                        <p style="color: #8899cc; font-size: 0.85rem; margin-top: 10px;">Produktų rekomendacijos!</p>
                     </div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
@@ -275,8 +273,8 @@
         </section>
 
         <section class="about-section animate-in">
-            <h2>🤖 Sekite Mane</h2>
-            <p>Prisijunkite prie bendruomenės visose platformose</p>
+            <h2 class="section-title">🤖 Sekite Mane</h2>
+            <p style="text-align: center; color: #8899cc; max-width: 800px; margin: 0 auto 30px;">Prisijunkite prie bendruomenės visose platformose</p>
             <div class="social-grid">
                 <a href="https://www.facebook.com/share/18FoYkY2XX/" target="_blank" class="social-card">
                     <div class="icon fb"><i class="fab fa-facebook-f"></i></div>
@@ -321,40 +319,22 @@
 
     <script>
         // KALBŲ SISTEMA
-        const translations = {
-            lt: {
-                login: "Prisijungti",
-                logout: "Atsijungti",
-                register: "Registruotis",
-                signin: "Prisijungti"
-            },
-            ru: {
-                login: "Войти",
-                logout: "Выход",
-                register: "Зарегистрироваться",
-                signin: "Войти"
-            },
-            en: {
-                login: "Login",
-                logout: "Logout",
-                register: "Register",
-                signin: "Sign In"
-            }
-        };
-
         let currentLang = localStorage.getItem('digudrybes_lang') || 'lt';
 
         function switchLang(lang) {
             currentLang = lang;
+            localStorage.setItem('digudrybes_lang', lang);
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-            localStorage.setItem('digudrybes_lang', lang);
-            alert('Kalba pakeista į: ' + (lang === 'lt' ? 'Lietuvių' : lang === 'ru' ? 'Rusų' : 'Anglų'));
         }
 
-        function openModal() { document.getElementById('loginModal').classList.add('show'); }
-        function closeModal() { document.getElementById('loginModal').classList.remove('show'); }
+        function openModal() { 
+            document.getElementById('loginModal').classList.add('show'); 
+        }
+        function closeModal() { 
+            document.getElementById('loginModal').classList.remove('show'); 
+        }
 
         function switchModalTab(tab) {
             document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
@@ -405,14 +385,14 @@
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             const err = document.getElementById('modalPasswordError');
             const input = document.getElementById('modalPassword');
-            if (!regex.test(password)) {
+            if (password && !regex.test(password)) {
                 err.classList.add('show');
                 input.classList.add('error');
                 return false;
             }
             err.classList.remove('show');
             input.classList.remove('error');
-            input.classList.add('success');
+            if (password) input.classList.add('success');
             return true;
         }
 
@@ -439,6 +419,9 @@
             closeModal();
             checkAuth();
             alert('✅ Sėkmingai užsiregistravote, ' + nickname + '!');
+            document.getElementById('modalNickname').value = '';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalPassword').value = '';
         }
 
         function modalLogin() {
@@ -462,6 +445,8 @@
             closeModal();
             checkAuth();
             alert('👋 Sveiki sugrįžę, ' + nickname + '!');
+            document.getElementById('modalLoginNickname').value = '';
+            document.getElementById('modalLoginPassword').value = '';
         }
 
         function logoutUser() {
@@ -491,7 +476,7 @@
             }
         }
 
-        // INICIJALIZACIJA
+        // Inicijalizacija
         switchLang(currentLang);
         checkAuth();
     </script>
