@@ -18,45 +18,79 @@
         .shake { animation: shake 0.4s ease-in-out; }
 
         /* NAVIGACIJA */
-        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 26, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .navbar { 
+            position: fixed; top: 0; left: 0; right: 0; 
+            background: rgba(10, 10, 26, 0.95); backdrop-filter: blur(10px); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+            padding: 12px 20px; z-index: 1000; display: flex; 
+            justify-content: space-between; align-items: center; 
+            flex-wrap: wrap; gap: 10px;
+        }
         .navbar .logo { font-weight: 700; font-size: 1.2rem; background: linear-gradient(135deg, #00c8ff, #7b2cbf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .navbar .nav-right { display: flex; align-items: center; gap: 15px; }
         .lang-switcher { display: flex; gap: 5px; }
-        .lang-btn { padding: 6px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #8899cc; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .lang-btn { 
+            padding: 6px 12px; background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; 
+            color: #8899cc; cursor: pointer; font-size: 0.8rem; transition: all 0.3s;
+        }
         .lang-btn.active { background: linear-gradient(135deg, rgba(0,200,255,0.3), rgba(123,44,191,0.3)); border-color: #00c8ff; color: #00c8ff; }
         .lang-btn:hover { border-color: rgba(0,200,255,0.5); }
-        .login-btn { padding: 8px 20px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 25px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .login-btn { 
+            padding: 8px 20px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); 
+            border: none; border-radius: 25px; color: white; font-weight: 600; 
+            cursor: pointer; transition: all 0.3s; font-size: 0.9rem;
+        }
         .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,200,255,0.3); }
-        .user-badge { display: none; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2); border-radius: 25px; color: #00ff88; font-size: 0.9rem; }
+        .user-badge { 
+            display: none; align-items: center; gap: 8px; 
+            padding: 8px 16px; background: rgba(0,255,136,0.1); 
+            border: 1px solid rgba(0,255,136,0.2); border-radius: 25px; color: #00ff88; font-size: 0.9rem;
+        }
         .user-badge.show { display: flex; }
-        .logout-btn { padding: 6px 14px; background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3); border-radius: 20px; color: #ff4444; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .logout-btn { 
+            padding: 6px 14px; background: rgba(255,68,68,0.1); 
+            border: 1px solid rgba(255,68,68,0.3); border-radius: 20px; 
+            color: #ff4444; cursor: pointer; font-size: 0.8rem; transition: all 0.3s;
+        }
         .logout-btn:hover { background: rgba(255,68,68,0.2); }
 
         /* LOGIN MODAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; animation: fadeIn 0.3s; }
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; 
+            animation: fadeIn 0.3s;
+        }
         .modal-overlay.show { display: flex; }
-        .modal { background: linear-gradient(135deg, #1a1a3e, #0d0d2b); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; max-width: 400px; width: 90%; position: relative; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #6677aa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .modal { 
+            background: linear-gradient(135deg, #1a1a3e, #0d0d2b); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; 
+            padding: 30px; max-width: 400px; width: 90%; position: relative;
+        }
+        .modal-close { 
+            position: absolute; top: 15px; right: 15px; background: none; border: none; 
+            color: #6677aa; font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+        }
         .modal-close:hover { color: #ff4444; }
         .modal h3 { text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
         .modal-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
         .modal-tab { flex: 1; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #8899cc; cursor: pointer; transition: all 0.3s; }
         .modal-tab.active { background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(123,44,191,0.2)); border-color: #00c8ff; color: #00c8ff; }
 
-        /* SLAPTAŽODŽIO RODYMAS */
-        .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 50px !important; }
-        .toggle-password { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #6677aa; cursor: pointer; font-size: 1rem; transition: color 0.3s; }
-        .toggle-password:hover { color: #00c8ff; }
-
         /* APSAUGOTAS TURINYS */
         .protected-content { display: none; }
         .protected-content.show { display: block; }
-        .login-prompt { text-align: center; padding: 60px 20px; max-width: 500px; margin: 0 auto; }
+        .login-prompt { 
+            text-align: center; padding: 60px 20px; max-width: 500px; margin: 0 auto;
+        }
         .login-prompt i { font-size: 4rem; color: #6677aa; margin-bottom: 20px; display: block; }
         .login-prompt h3 { font-size: 1.5rem; margin-bottom: 10px; }
         .login-prompt p { color: #8899cc; margin-bottom: 25px; }
-        .login-prompt-btn { padding: 15px 40px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 50px; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .login-prompt-btn { 
+            padding: 15px 40px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); 
+            border: none; border-radius: 50px; color: white; font-weight: 600; 
+            font-size: 1rem; cursor: pointer; transition: all 0.3s;
+        }
         .login-prompt-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,200,255,0.3); }
 
         .header { text-align: center; padding: 100px 20px 40px; position: relative; }
@@ -89,58 +123,27 @@
         .pt { background: linear-gradient(135deg, #bd081c, #8b0615); }
         .dc { background: linear-gradient(135deg, #5865f2, #3a45c7); }
         .rd { background: linear-gradient(135deg, #ff4500, #cc3700); }
-        .sb { background: linear-gradient(135deg, #ff6719, #cc4f0f); }
-
-        /* AFFILIATE SEKCIJA */
-        .affiliate-section { max-width: 1000px; margin: 50px auto; padding: 40px 20px; }
-        .affiliate-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .affiliate-section > p { text-align: center; color: #8899cc; margin-bottom: 30px; }
-        .bonus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .bonus-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 200, 0, 0.2); border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s; }
-        .bonus-card:hover { transform: translateY(-3px); border-color: rgba(255, 200, 0, 0.5); box-shadow: 0 10px 40px rgba(255, 200, 0, 0.1); }
-        .bonus-card .bonus-icon { width: 55px; height: 55px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
-        .bonus-card .bonus-info { flex: 1; }
-        .bonus-card .bonus-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; color: #e0e0ff; }
-        .bonus-card .bonus-amount { font-size: 1.1rem; font-weight: 800; color: #00ff88; margin-bottom: 4px; }
-        .bonus-card .bonus-desc { font-size: 0.8rem; color: #6677aa; }
-        .bonus-telegram { text-align: center; margin-top: 25px; padding: 20px; background: rgba(0, 136, 204, 0.1); border: 1px solid rgba(0, 136, 204, 0.3); border-radius: 16px; }
-        .bonus-telegram p { color: #8899cc; margin-bottom: 12px; }
-        .bonus-telegram a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 25px; background: linear-gradient(135deg, #0088cc, #005580); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s; }
-        .bonus-telegram a:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4); }
-
-        /* CHAT */
+        .affiliate-section { max-width: 800px; margin: 50px auto; padding: 40px; background: rgba(0, 200, 255, 0.03); border: 1px solid rgba(0, 200, 255, 0.1); border-radius: 20px; text-align: center; }
+        .affiliate-section h2 { font-size: 1.8rem; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .affiliate-section p { color: #8899cc; margin-bottom: 25px; line-height: 1.6; }
+        .affiliate-btn { display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: all 0.3s; animation: glow 2s ease-in-out infinite; }
+        .affiliate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.4); }
         .chat-section { max-width: 600px; margin: 50px auto; padding: 0 20px; }
         .chat-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .chat-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; overflow: hidden; }
         .chat-header { background: linear-gradient(135deg, rgba(0, 200, 255, 0.1), rgba(123, 44, 191, 0.1)); padding: 20px; display: flex; align-items: center; gap: 15px; }
         .chat-header .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #7b2cbf); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .chat-header .status { display: flex; align-items: center; gap: 5px; color: #00ff88; font-size: 0.85rem; }
-        .chat-messages { padding: 20px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-messages { padding: 20px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; line-height: 1.4; }
         .message.bot { background: rgba(0, 200, 255, 0.1); align-self: flex-start; border-bottom-left-radius: 4px; }
         .message.user { background: rgba(123, 44, 191, 0.2); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .message.typing { background: rgba(0, 200, 255, 0.1); align-self: flex-start; border-bottom-left-radius: 4px; color: #6677aa; font-style: italic; }
         .chat-input { padding: 15px 20px; display: flex; gap: 10px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
         .chat-input input { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; padding: 12px 20px; color: #e0e0ff; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
         .chat-input input:focus { border-color: rgba(0, 200, 255, 0.5); }
         .chat-input input::placeholder { color: #6677aa; }
         .chat-input button { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; color: white; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .chat-input button:hover { transform: scale(1.1); }
-
-        /* PASIŪLYMAI */
-        .feedback-section { max-width: 600px; margin: 50px auto; padding: 0 20px; }
-        .feedback-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .feedback-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
-        .feedback-container p { color: #8899cc; margin-bottom: 20px; text-align: center; }
-        .feedback-container textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 18px; color: #e0e0ff; font-size: 0.95rem; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 100px; font-family: 'Inter', sans-serif; margin-bottom: 15px; }
-        .feedback-container textarea:focus { border-color: rgba(0, 200, 255, 0.5); }
-        .feedback-container textarea::placeholder { color: #5566aa; }
-        .feedback-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .feedback-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.3); }
-        .feedback-success { color: #00ff88; text-align: center; margin-top: 15px; display: none; }
-        .feedback-success.show { display: block; }
-
-        /* FORMOS */
         .reg-section { max-width: 500px; margin: 50px auto; padding: 0 20px; }
         .reg-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; }
         .reg-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; }
@@ -164,21 +167,10 @@
         .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.3); }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* FOOTER */
         .footer { text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 50px; }
-        .footer-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 20px; }
-        .footer-links a { color: #8899cc; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; display: flex; align-items: center; gap: 6px; }
-        .footer-links a:hover { color: #00c8ff; }
+        .footer .email { display: inline-flex; align-items: center; gap: 10px; color: #00c8ff; text-decoration: none; font-size: 1.1rem; margin-bottom: 20px; transition: all 0.3s; }
+        .footer .email:hover { color: #7b2cbf; }
         .footer .copyright { color: #5566aa; font-size: 0.85rem; }
-
-        /* KONTAKTAI POPUP */
-        .contact-popup { display: none; position: fixed; bottom: 80px; right: 20px; background: linear-gradient(135deg, #1a1a3e, #0d0d2b); border: 1px solid rgba(0, 200, 255, 0.3); border-radius: 16px; padding: 20px; z-index: 999; min-width: 250px; animation: slideIn 0.3s; }
-        .contact-popup.show { display: block; }
-        .contact-popup h4 { color: #00c8ff; margin-bottom: 15px; font-size: 1rem; }
-        .contact-popup a { display: flex; align-items: center; gap: 10px; color: #e0e0ff; text-decoration: none; padding: 10px; border-radius: 10px; transition: all 0.3s; margin-bottom: 8px; }
-        .contact-popup a:hover { background: rgba(0, 200, 255, 0.1); color: #00c8ff; }
-        .contact-popup-close { position: absolute; top: 10px; right: 12px; background: none; border: none; color: #6677aa; cursor: pointer; font-size: 1.1rem; }
 
         .about-section { max-width: 800px; margin: 50px auto; padding: 0 20px; }
         .about-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -193,8 +185,12 @@
         .newsletter-container { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 30px; text-align: center; }
         .newsletter-container p { color: #8899cc; margin-bottom: 20px; line-height: 1.6; }
         .newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .newsletter-form button { padding: 14px 30px; background: linear-gradient(135deg, #ff6719, #cc4f0f); border: none; border-radius: 12px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
-        .newsletter-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 103, 25, 0.3); }
+        .newsletter-form input { flex: 1; min-width: 200px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 18px; color: #e0e0ff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .newsletter-form input:focus { border-color: rgba(0, 200, 255, 0.5); }
+        .newsletter-form button { padding: 14px 30px; background: linear-gradient(135deg, #00c8ff, #7b2cbf); border: none; border-radius: 12px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .newsletter-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 200, 255, 0.3); }
+        .newsletter-success { color: #00ff88; margin-top: 15px; display: none; }
+        .newsletter-success.show { display: block; }
 
         .faq-section { max-width: 800px; margin: 50px auto; padding: 0 20px; }
         .faq-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -207,23 +203,21 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: #8899cc; line-height: 1.6; padding-top: 0; }
         .faq-item.active .faq-answer { max-height: 300px; padding-top: 15px; }
 
+        @media (max-width: 600px) { 
+            .header { padding-top: 120px; }
+            .header h1 { font-size: 2rem; } 
+            .social-grid { grid-template-columns: 1fr; } 
+            .newsletter-form { flex-direction: column; }
+            .navbar { padding: 10px; }
+            .navbar .logo { font-size: 1rem; }
+        }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 200, 255, 0.2); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0, 200, 255, 0.4); }
-
-        @media (max-width: 600px) {
-            .header { padding-top: 120px; }
-            .header h1 { font-size: 2rem; }
-            .social-grid { grid-template-columns: 1fr; }
-            .bonus-grid { grid-template-columns: 1fr; }
-            .navbar { padding: 10px; }
-            .navbar .logo { font-size: 1rem; }
-        }
     </style>
 </head>
 <body>
-
     <!-- NAVIGACIJA -->
     <nav class="navbar">
         <div class="logo">🤖 DI Gudrybės.eu</div>
@@ -236,9 +230,9 @@
             <div class="user-badge" id="userBadge">
                 <i class="fas fa-user"></i>
                 <span id="userName"></span>
-                <button class="logout-btn" onclick="logoutUser()">Atsijungti</button>
+                <button class="logout-btn" onclick="logoutUser()" data-i18n="logout">Atsijungti</button>
             </div>
-            <button class="login-btn" id="loginBtn" onclick="openModal()">Prisijungti</button>
+            <button class="login-btn" id="loginBtn" onclick="openModal()" data-i18n="login">Prisijungti</button>
         </div>
     </nav>
 
@@ -246,76 +240,53 @@
     <div class="modal-overlay" id="loginModal">
         <div class="modal">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h3>👤 Vartotojo Zona</h3>
+            <h3 data-i18n="userZone">👤 Vartotojo Zona</h3>
             <div class="modal-tabs">
-                <button class="modal-tab active" onclick="switchModalTab('register')">Registruotis</button>
-                <button class="modal-tab" onclick="switchModalTab('login')">Prisijungti</button>
+                <button class="modal-tab active" onclick="switchModalTab('register')" data-i18n="register">Registruotis</button>
+                <button class="modal-tab" onclick="switchModalTab('login')" data-i18n="signin">Prisijungti</button>
             </div>
             <div id="modalRegisterForm">
                 <div class="form-group">
-                    <label>🎭 Slapyvardis</label>
+                    <label data-i18n="nickname">🎭 Slapyvardis</label>
                     <input type="text" id="modalNickname" placeholder="Įveskite slapyvardį..." onblur="validateModalNickname()">
                     <div class="error-msg" id="modalNicknameError">⚠️ Slapyvardis turi būti 3-20 simbolių.</div>
                 </div>
                 <div class="form-group">
-                    <label>📧 El. paštas</label>
+                    <label data-i18n="email">📧 El. paštas</label>
                     <input type="email" id="modalEmail" placeholder="jusu@email.com" onblur="validateModalEmail()">
                     <div class="error-msg" id="modalEmailError">⚠️ Neteisingas el. paštas.</div>
                 </div>
                 <div class="form-group">
-                    <label>🔑 Slaptažodis</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="modalPassword" placeholder="Sukurkite slaptažodį..." oninput="checkModalPasswordStrength()">
-                        <button class="toggle-password" type="button" onclick="togglePasswordVisibility('modalPassword', this)"><i class="fas fa-eye"></i></button>
-                    </div>
+                    <label data-i18n="password">🔑 Slaptažodis</label>
+                    <input type="password" id="modalPassword" placeholder="Sukurkite slaptažodį..." oninput="checkModalPasswordStrength()">
                     <div class="password-strength" id="modalPasswordStrength"></div>
                     <div class="strength-label" id="modalStrengthLabel"></div>
                     <div class="error-msg" id="modalPasswordError">⚠️ Bent 8 simboliai, didžioji, mažoji raidė ir skaičius.</div>
                 </div>
-                <div class="form-group" style="display:flex; align-items:center; gap:10px;">
-                    <input type="checkbox" id="savePassword" style="width:auto; margin:0;">
-                    <label for="savePassword" style="margin:0; cursor:pointer;">💾 Išsaugoti slaptažodį</label>
-                </div>
-                <button class="submit-btn" onclick="modalRegister()">🚀 Registruotis</button>
+                <button class="submit-btn" onclick="modalRegister()" data-i18n="registerBtn">🚀 Registruotis</button>
             </div>
             <div id="modalLoginForm" style="display: none;">
                 <div class="form-group">
-                    <label>🎭 Slapyvardis</label>
+                    <label data-i18n="nickname">🎭 Slapyvardis</label>
                     <input type="text" id="modalLoginNickname" placeholder="Įveskite slapyvardį...">
                 </div>
                 <div class="form-group">
-                    <label>🔑 Slaptažodis</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="modalLoginPassword" placeholder="Įveskite slaptažodį...">
-                        <button class="toggle-password" type="button" onclick="togglePasswordVisibility('modalLoginPassword', this)"><i class="fas fa-eye"></i></button>
-                    </div>
+                    <label data-i18n="password">🔑 Slaptažodis</label>
+                    <input type="password" id="modalLoginPassword" placeholder="Įveskite slaptažodį...">
                 </div>
-                <div class="form-group" style="display:flex; align-items:center; gap:10px;">
-                    <input type="checkbox" id="saveLoginPassword" style="width:auto; margin:0;">
-                    <label for="saveLoginPassword" style="margin:0; cursor:pointer;">💾 Išsaugoti slaptažodį</label>
-                </div>
-                <button class="submit-btn" onclick="modalLogin()">🔓 Prisijungti</button>
+                <button class="submit-btn" onclick="modalLogin()" data-i18n="loginBtn">🔓 Prisijungti</button>
             </div>
         </div>
     </div>
 
-    <!-- KONTAKTAI POPUP -->
-    <div class="contact-popup" id="contactPopup">
-        <button class="contact-popup-close" onclick="toggleContact()">&times;</button>
-        <h4>📬 Susisiekite su mumis</h4>
-        <a href="mailto:digudrybes@gmail.com"><i class="fas fa-envelope" style="color:#00c8ff;"></i> digudrybes@gmail.com</a>
-        <a href="https://t.me/digudrybe0" target="_blank"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i> Telegram @digudrybe0</a>
-        <a href="https://www.facebook.com/share/18FoYkY2XX/" target="_blank"><i class="fab fa-facebook-f" style="color:#1877f2;"></i> Facebook</a>
-    </div>
-
     <header class="header animate-in">
         <div class="logo-icon">🤖</div>
-        <h1>DI Gudrybės.eu</h1>
-        <p class="subtitle">🌍 Skaitmeninio pasaulio gudrybės</p>
+        <h1 data-i18n="title">DI Gudrybės.eu</h1>
+        <p class="subtitle" data-i18n="subtitle">🌍 Skaitmeninio pasaulio gudrybės</p>
         <div class="tagline">
             <span>🤖 AI</span>
-            <span>📱 Triukai</span>
-            <span>💡 Idėjos pradedantiesiems</span>
+            <span>📱 <span data-i18n="tricks">Triukai</span></span>
+            <span>💡 <span data-i18n="ideas">Idėjos pradedantiesiems</span></span>
         </div>
     </header>
 
@@ -328,28 +299,26 @@
         <span class="hashtag">#Lietuva</span>
     </div>
 
-    <!-- Apie mus -->
+    <!-- Apie mus - VISADA MATOMA -->
     <section class="about-section animate-in">
-        <h2>📖 Apie Mus</h2>
+        <h2 data-i18n="about">📖 Apie Mus</h2>
         <div class="about-container">
-            <p>DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės naujausiais dirbtinio intelekto įrankiais, technologiniais triukais ir idėjomis pradedantiesiems.</p>
-            <p>Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🚀</p>
+            <p data-i18n="aboutText1">DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės naujausiais dirbtinio intelekto įrankiais, technologiniais triukais ir idėjomis pradedantiesiems.</p>
+            <p data-i18n="aboutText2">Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🚀</p>
             <ul>
-                <li>DI įrankių apžvalgos ir pamokos</li>
-                <li>Telefono ir kompiuterio triukai</li>
-                <li>Internetinio uždarbio galimybės</li>
-                <li>Bendruomenės palaikymas</li>
+                <li data-i18n="aboutItem1">DI įrankių apžvalgos ir pamokos</li>
+                <li data-i18n="aboutItem2">Telefono ir kompiuterio triukai</li>
+                <li data-i18n="aboutItem3">Internetinio uždarbio galimybės</li>
+                <li data-i18n="aboutItem4">Bendruomenės palaikymas</li>
             </ul>
         </div>
     </section>
 
     <!-- APSAUGOTAS TURINYS -->
     <div class="protected-content" id="protectedContent">
-
-        <!-- SOCIALINIAI TINKLAI -->
         <section class="follow-section animate-in">
-            <h2>🤖 Sekite Mane</h2>
-            <p>Prisijunkite prie bendruomenės visose platformose</p>
+            <h2 data-i18n="followMe">🤖 Sekite Mane</h2>
+            <p data-i18n="followText">Prisijunkite prie bendruomenės visose platformose</p>
             <div class="social-grid">
                 <a href="https://www.facebook.com/share/18FoYkY2XX/" target="_blank" class="social-card">
                     <div class="icon fb"><i class="fab fa-facebook-f"></i></div>
@@ -401,109 +370,68 @@
                     <div class="info"><div class="name">Reddit</div><div class="handle">u/DI_Gudrybes</div></div>
                     <i class="fas fa-arrow-right arrow"></i>
                 </a>
-                <a href="https://digudrybes.substack.com" target="_blank" class="social-card">
-                    <div class="icon sb" style="background: linear-gradient(135deg, #ff6719, #cc4f0f);">✉️</div>
-                    <div class="info"><div class="name">Substack</div><div class="handle">digudrybes.substack.com</div></div>
-                    <i class="fas fa-arrow-right arrow"></i>
-                </a>
             </div>
         </section>
 
-        <!-- 💰 INTERNETINIS UŽDARBIS -->
         <section class="affiliate-section animate-in">
-            <h2>💰 Internetinis Uždarbis</h2>
-            <p>🎁 Šiai dienai veikiantys bonusai — užsiregistruokite per mano nuorodas ir gaukite premijas!</p>
-            <div class="bonus-grid">
-
-                <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank" class="bonus-card">
-                    <div class="bonus-icon" style="background: linear-gradient(135deg, #1da462, #148a50);">💚</div>
-                    <div class="bonus-info">
-                        <div class="bonus-name">Myfin</div>
-                        <div class="bonus-amount">10 EUR + 10 EUR</div>
-                        <div class="bonus-desc">už pakvietimą (10 EUR depo)</div>
-                    </div>
-                    <i class="fas fa-arrow-right" style="color:#6677aa;"></i>
-                </a>
-
-                <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank" class="bonus-card">
-                    <div class="bonus-icon" style="background: linear-gradient(135deg, #6b4cff, #4a2fd4);">🪙</div>
-                    <div class="bonus-info">
-                        <div class="bonus-name">KRAK + KRAKEN</div>
-                        <div class="bonus-amount">virš 30 USD + 10 USD</div>
-                        <div class="bonus-desc">už pakvietimą + crypto bonusai kasdien</div>
-                    </div>
-                    <i class="fas fa-arrow-right" style="color:#6677aa;"></i>
-                </a>
-
-                <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank" class="bonus-card">
-                    <div class="bonus-icon" style="background: linear-gradient(135deg, #0033a0, #002270);">🏦</div>
-                    <div class="bonus-info">
-                        <div class="bonus-name">Luminor</div>
-                        <div class="bonus-amount">50 EUR</div>
-                        <div class="bonus-desc">už 5 atsiskaitymus kortele</div>
-                    </div>
-                    <i class="fas fa-arrow-right" style="color:#6677aa;"></i>
-                </a>
-
-                <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank" class="bonus-card">
-                    <div class="bonus-icon" style="background: linear-gradient(135deg, #0075eb, #0057b8);">💳</div>
-                    <div class="bonus-info">
-                        <div class="bonus-name">Revolut</div>
-                        <div class="bonus-amount">35 EUR</div>
-                        <div class="bonus-desc">(15 EUR depo) + RevPoints → EUR</div>
-                    </div>
-                    <i class="fas fa-arrow-right" style="color:#6677aa;"></i>
-                </a>
-
-            </div>
-            <div class="bonus-telegram">
-                <p>📢 Daugiau bonusų ir nuorodų kanale — atnaujinama kasdien!</p>
-                <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank">
-                    <i class="fab fa-telegram-plane"></i> Eiti į kanalą „💰 Internetinis Uždarbis"
-                </a>
-            </div>
+            <h2 data-i18n="earnings">💰 Internetinis Uždarbis</h2>
+            <p data-i18n="earningsText">Užsiregistruokite per mano nuorodas ir pradėkite uždirbti internete!</p>
+            <a href="#uzdarbis" class="affiliate-btn" data-i18n="earningsBtn">🚀 Peržiūrėti Uždarbio Galimybes</a>
         </section>
 
-        <!-- DUK -->
         <section class="faq-section animate-in">
-            <h2>❓ Dažniausiai Užduodami Klausimai</h2>
+            <h2 data-i18n="faq">❓ Dažniausiai Užduodami Klausimai</h2>
             <div class="faq-container">
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question"><span>Kas yra DI Gudrybės.eu?</span><i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės dirbtinio intelekto (DI/AI) įrankiais, technologiniais triukais ir idėjomis pradedantiesiems. Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🤖</div>
+                    <div class="faq-question">
+                        <span data-i18n="faqQ1">Kas yra DI Gudrybės.eu?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA1">DI Gudrybės.eu – tai lietuviška platforma, kurioje dalijamės dirbtinio intelekto (DI/AI) įrankiais, technologiniais triukais ir idėjomis pradedantiesiems. Mūsų misija – padaryti technologijas prieinamas kiekvienam! 🤖</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question"><span>Ar registracija yra nemokama?</span><i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Taip, registracija yra visiškai nemokama! 👤 Užsiregistravę gausite prieigą prie papildomo turinio, pokalbių kambario ir galėsite užsiprenumeruoti naujienlaiškį. Jokių paslėptų mokesčių!</div>
+                    <div class="faq-question">
+                        <span data-i18n="faqQ2">Ar registracija yra nemokama?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA2">Taip, registracija yra visiškai nemokama! 👤 Užsiregistravę gausite prieigą prie papildomo turinio, pokalbių kambario ir galėsite užsiprenumeruoti naujienlaiškį. Jokių paslėptų mokesčių!</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question"><span>Kaip galiu užsidirbti internetu?</span><i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Internete galima uždirbti įvairiais būdais: partnerių (affiliate) programos, freelansas, turinio kūrimas socialiniuose tinkluose, DI įrankių naudojimas darbui automatizuoti. 💰 Peržiūrėkite mūsų "Internetinis Uždarbis" skiltį – ten rasite patikrintas partnerių programas ir nuorodas!</div>
+                    <div class="faq-question">
+                        <span data-i18n="faqQ3">Kaip galiu užsidirbti internetu?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA3">Internete galima uždirbti įvairiais būdais: partnerių (affiliate) programos, freelansas, turinio kūrimas socialiniuose tinkluose, DI įrankių naudojimas darbui automatizuoti. 💰 Peržiūrėkite mūsų "Internetinis Uždarbis" skiltį viršuje – ten rasite patikrintas partnerių programas ir nuorodas, per kurias galite pradėti uždirbti jau šiandien!</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question"><span>Ar mano duomenys yra saugūs?</span><i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Taip, jūsų duomenys yra saugūs! 🔒 Slaptažodžiai yra šifruojami prieš saugojimą, o visa informacija saugoma tik jūsų naršyklėje – mes nekaupiame ir neturime prieigos prie jūsų duomenų serveriuose.</div>
+                    <div class="faq-question">
+                        <span data-i18n="faqQ4">Ar mano duomenys yra saugūs?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA4">Taip, jūsų duomenys yra saugūs! 🔒 Slaptažodžiai yra šifruojami (hash'uojami) prieš saugojimą, o visa informacija saugoma tik jūsų naršyklėje (localStorage) – mes nekaupiame ir neturime prieigos prie jūsų duomenų serveriuose. Jūsų privatumas mums svarbiausia!</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question"><span>Kur galiu su jumis susisiekti?</span><i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Galite susisiekti: 📧 El. paštu – digudrybes@gmail.com | 💬 Socialiniuose tinkluose – Facebook, Instagram, Telegram, YouTube, TikTok ir kt. Atsakome kuo greičiau!</div>
+                    <div class="faq-question">
+                        <span data-i18n="faqQ5">Kur galiu su jumis susisiekti?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" data-i18n="faqA5">Galite susisiekti keliais būdais: 📧 El. paštu – digudrybes@gmail.com | 💬 Socialiniuose tinkluose – Facebook, Instagram, Telegram, YouTube, TikTok, X (Twitter), Threads, Pinterest, Discord, Reddit (nuorodos viršuje). Atsakome kuo greičiau!</div>
                 </div>
             </div>
         </section>
 
-        <!-- CHAT -->
         <section class="chat-section animate-in">
-            <h2>💬 DI Gudrybių Asistentas</h2>
+            <h2 data-i18n="chat">💬 Pokalbių Kambarys</h2>
             <div class="chat-container">
                 <div class="chat-header">
                     <div class="avatar">🤖</div>
                     <div>
-                        <div style="font-weight: 600;">DI Gudrybių Asistentas</div>
-                        <div class="status"><span style="width: 8px; height: 8px; background: #00ff88; border-radius: 50%; display: inline-block;"></span> Prisijungęs</div>
+                        <div style="font-weight: 600;" data-i18n="chatBot">DI Gudrybių Asistentas</div>
+                        <div class="status"><span style="width: 8px; height: 8px; background: #00ff88; border-radius: 50%; display: inline-block;"></span><span data-i18n="online">Prisijungęs</span></div>
                     </div>
                 </div>
                 <div class="chat-messages" id="chatMessages">
-                    <div class="message bot">Sveiki! 👋 Aš esu DI Gudrybių asistentas. Užduokite bet kokį klausimą apie AI, technologijas ar uždarbį internetu!</div>
+                    <div class="message bot" data-i18n="chatWelcome">Sveiki! 👋 Aš esu DI Gudrybių asistentas. Kaip galiu jums padėti šiandien?</div>
                 </div>
                 <div class="chat-input">
                     <input type="text" id="chatInput" placeholder="Rašykite žinutę..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -512,233 +440,33 @@
             </div>
         </section>
 
-        <!-- PASIŪLYMAI -->
-        <section class="feedback-section animate-in">
-            <h2>💡 Ko Trūksta Svetainėje?</h2>
-            <div class="feedback-container">
-                <p>Jūsų nuomonė mums labai svarbi! Parašykite ką norėtumėte matyti šioje svetainėje.</p>
-                <textarea id="feedbackText" placeholder="Pvz: Norėčiau daugiau informacijos apie ChatGPT, pridėti vaizdo pamokų skiltį..."></textarea>
-                <button class="feedback-btn" onclick="sendFeedback()">📨 Siųsti Pasiūlymą</button>
-                <div class="feedback-success" id="feedbackSuccess">🎉 Ačiū! Jūsų pasiūlymas gautas! Mes jį peržiūrėsime.</div>
-            </div>
-        </section>
-
-        <!-- NAUJIENLAIŠKIS -->
         <section class="newsletter-section animate-in">
-            <h2>📧 Naujienlaiškis</h2>
+            <h2 data-i18n="newsletter">📧 Naujienlaiškis</h2>
             <div class="newsletter-container">
-                <p>Užsiprenumeruokite mūsų Substack naujienlaiškį ir pirmieji sužinokite apie naujausius DI įrankius, triukus ir uždarbio galimybes!</p>
+                <p data-i18n="newsletterText">Užsiprenumeruokite mūsų naujienlaiškį ir pirmieji sužinokite apie naujausius DI įrankius, triukus ir uždarbio galimybes!</p>
                 <div class="newsletter-form">
-                    <a href="https://digudrybes.substack.com" target="_blank"><button type="button">📬 Prenumeruoti Substack</button></a>
+                    <input type="email" id="newsletterEmail" placeholder="jusu@email.com">
+                    <button onclick="subscribeNewsletter()" data-i18n="subscribe">Prenumeruoti</button>
                 </div>
+                <div class="newsletter-success" id="newsletterSuccess">🎉 Sėkmingai užsiprenumeravote!</div>
             </div>
         </section>
-
     </div>
 
-    <!-- LOGIN PROMPT -->
+    <!-- LOGIN PROMPT (kai neprisijungęs) -->
     <div class="login-prompt" id="loginPrompt">
         <i class="fas fa-lock"></i>
-        <h3>🔒 Turinys užrakintas</h3>
-        <p>Prisijunkite arba užsiregistruokite, kad matytumėte socialinius tinklus, bonus korteles, pokalbių kambarį ir kitą turinį!</p>
-        <button class="login-prompt-btn" onclick="openModal()">Prisijungti Dabar</button>
+        <h3 data-i18n="lockedTitle">🔒 Turinys užrakintas</h3>
+        <p data-i18n="lockedText">Prisijunkite arba užsiregistruokite, kad matytumėte socialinius tinklus, pokalbių kambarį, DUK ir kitą turinį!</p>
+        <button class="login-prompt-btn" onclick="openModal()" data-i18n="loginNow">Prisijungti Dabar</button>
     </div>
 
     <footer class="footer">
-        <div class="footer-links">
-            <a href="mailto:digudrybes@gmail.com"><i class="fas fa-envelope"></i> digudrybes@gmail.com</a>
-            <a href="javascript:void(0)" onclick="toggleContact()"><i class="fas fa-address-book"></i> Kontaktai</a>
-            <a href="https://digudrybes.substack.com" target="_blank"><i class="fas fa-newspaper"></i> Naujienlaiškis</a>
-            <a href="https://t.me/PirmasUzdarbiszTelegram" target="_blank"><i class="fab fa-telegram-plane"></i> Uždarbio Kanalas</a>
-        </div>
-        <p class="copyright">© 2025 DI Gudrybės.eu. Visos teisės saugomos. | Sukurta su 🤖 Lietuvoje</p>
+        <a href="mailto:digudrybes@gmail.com" class="email"><i class="fas fa-envelope"></i>digudrybes@gmail.com</a>
+        <p class="copyright" data-i18n="copyright">© 2025 DI Gudrybės.eu. Visos teisės saugomos. | Sukurta su 🤖 Lietuvoje</p>
     </footer>
 
-    <script>
-        // ===== SLAPTAŽODŽIO RODYMAS =====
-        function togglePasswordVisibility(inputId, btn) {
-            const input = document.getElementById(inputId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
-            } else {
-                input.type = 'password';
-                btn.innerHTML = '<i class="fas fa-eye"></i>';
-            }
-        }
-
-        // ===== KALBOS PERJUNGIMAS =====
-        function switchLang(lang) {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-        }
-
-        // ===== MODAL =====
-        function openModal() { document.getElementById('loginModal').classList.add('show'); }
-        function closeModal() { document.getElementById('loginModal').classList.remove('show'); }
-        function switchModalTab(tab) {
-            document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('modalRegisterForm').style.display = tab === 'register' ? 'block' : 'none';
-            document.getElementById('modalLoginForm').style.display = tab === 'login' ? 'block' : 'none';
-        }
-        document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-
-        // ===== REGISTRACIJA =====
-        function validateModalNickname() {
-            const v = document.getElementById('modalNickname').value;
-            const ok = v.length >= 3 && v.length <= 20;
-            document.getElementById('modalNickname').className = ok ? 'success' : 'error';
-            document.getElementById('modalNicknameError').className = ok ? 'error-msg' : 'error-msg show';
-            return ok;
-        }
-        function validateModalEmail() {
-            const v = document.getElementById('modalEmail').value;
-            const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-            document.getElementById('modalEmail').className = ok ? 'success' : 'error';
-            document.getElementById('modalEmailError').className = ok ? 'error-msg' : 'error-msg show';
-            return ok;
-        }
-        function checkModalPasswordStrength() {
-            const p = document.getElementById('modalPassword').value;
-            const bar = document.getElementById('modalPasswordStrength');
-            const label = document.getElementById('modalStrengthLabel');
-            if (p.length < 6) { bar.className = 'password-strength weak'; label.textContent = '⚠️ Silpnas'; }
-            else if (p.length < 10) { bar.className = 'password-strength medium'; label.textContent = '🟡 Vidutinis'; }
-            else { bar.className = 'password-strength strong'; label.textContent = '✅ Stiprus'; }
-        }
-        function simpleHash(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) { hash = ((hash << 5) - hash) + str.charCodeAt(i); hash |= 0; }
-            return hash.toString(16);
-        }
-        function modalRegister() {
-            if (!validateModalNickname() || !validateModalEmail()) return;
-            const nick = document.getElementById('modalNickname').value;
-            const email = document.getElementById('modalEmail').value;
-            const pass = document.getElementById('modalPassword').value;
-            if (pass.length < 8) { document.getElementById('modalPasswordError').className = 'error-msg show'; return; }
-            const users = JSON.parse(localStorage.getItem('users') || '{}');
-            if (users[nick]) { alert('⚠️ Šis slapyvardis jau užimtas!'); return; }
-            users[nick] = { email, password: simpleHash(pass) };
-            localStorage.setItem('users', JSON.stringify(users));
-            if (document.getElementById('savePassword').checked) {
-                localStorage.setItem('savedNickname', nick);
-                localStorage.setItem('savedPassword', pass);
-            }
-            localStorage.setItem('currentUser', nick);
-            loginSuccess(nick);
-        }
-        function modalLogin() {
-            const nick = document.getElementById('modalLoginNickname').value;
-            const pass = document.getElementById('modalLoginPassword').value;
-            const users = JSON.parse(localStorage.getItem('users') || '{}');
-            if (!users[nick] || users[nick].password !== simpleHash(pass)) { alert('⚠️ Neteisingas slapyvardis arba slaptažodis!'); return; }
-            if (document.getElementById('saveLoginPassword').checked) {
-                localStorage.setItem('savedNickname', nick);
-                localStorage.setItem('savedPassword', pass);
-            }
-            localStorage.setItem('currentUser', nick);
-            loginSuccess(nick);
-        }
-        function loginSuccess(nick) {
-            closeModal();
-            document.getElementById('userBadge').classList.add('show');
-            document.getElementById('userName').textContent = nick;
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('protectedContent').classList.add('show');
-            document.getElementById('loginPrompt').style.display = 'none';
-        }
-        function logoutUser() {
-            localStorage.removeItem('currentUser');
-            document.getElementById('userBadge').classList.remove('show');
-            document.getElementById('loginBtn').style.display = 'block';
-            document.getElementById('protectedContent').classList.remove('show');
-            document.getElementById('loginPrompt').style.display = 'block';
-        }
-
-        // ===== AUTO-PRISIJUNGIMAS =====
-        window.addEventListener('load', function() {
-            const current = localStorage.getItem('currentUser');
-            if (current) loginSuccess(current);
-            // Užpildyti išsaugotus duomenis
-            const savedNick = localStorage.getItem('savedNickname');
-            const savedPass = localStorage.getItem('savedPassword');
-            if (savedNick) document.getElementById('modalLoginNickname').value = savedNick;
-            if (savedPass) document.getElementById('modalLoginPassword').value = savedPass;
-        });
-
-        // ===== DUK =====
-        function toggleFaq(item) {
-            item.classList.toggle('active');
-        }
-
-        // ===== CHAT SU AI =====
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const msg = input.value.trim();
-            if (!msg) return;
-            input.value = '';
-            const messages = document.getElementById('chatMessages');
-
-            // Vartotojo žinutė
-            const userDiv = document.createElement('div');
-            userDiv.className = 'message user';
-            userDiv.textContent = msg;
-            messages.appendChild(userDiv);
-
-            // Rašymo indikatorius
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message typing';
-            typingDiv.textContent = '🤖 Rašo...';
-            messages.appendChild(typingDiv);
-            messages.scrollTop = messages.scrollHeight;
-
-            try {
-                const response = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1000,
-                        system: 'Tu esi DI Gudrybių asistentas — draugiška lietuviška AI pagalbininkė. Atsakyk trumpai, aiškiai, lietuviškai. Specializuojiesi AI įrankiuose, technologijose ir uždarbio internetu temose. Visada baikite atsakymą su 🤖.',
-                        messages: [{ role: 'user', content: msg }]
-                    })
-                });
-                const data = await response.json();
-                typingDiv.remove();
-                const botDiv = document.createElement('div');
-                botDiv.className = 'message bot';
-                botDiv.textContent = data.content?.[0]?.text || 'Atsiprašau, nepavyko atsakyti.';
-                messages.appendChild(botDiv);
-            } catch (e) {
-                typingDiv.remove();
-                const botDiv = document.createElement('div');
-                botDiv.className = 'message bot';
-                botDiv.textContent = '😊 Sveiki! Užduokite klausimą apie AI ar technologijas — stengiuosi padėti!';
-                messages.appendChild(botDiv);
-            }
-            messages.scrollTop = messages.scrollHeight;
-        }
-
-        // ===== PASIŪLYMAI =====
-        function sendFeedback() {
-            const text = document.getElementById('feedbackText').value.trim();
-            if (!text) { alert('⚠️ Įrašykite savo pasiūlymą!'); return; }
-            const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-            feedbacks.push({ text, date: new Date().toLocaleDateString('lt-LT') });
-            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
-            document.getElementById('feedbackText').value = '';
-            document.getElementById('feedbackSuccess').classList.add('show');
-            setTimeout(() => document.getElementById('feedbackSuccess').classList.remove('show'), 4000);
-        }
-
-        // ===== KONTAKTAI =====
-        function toggleContact() {
-            document.getElementById('contactPopup').classList.toggle('show');
-        }
-    </script>
+    <!-- 🔗 SVARBU: Prijungti script.js failą -->
+    <script src="script.js"></script>
 </body>
 </html>
